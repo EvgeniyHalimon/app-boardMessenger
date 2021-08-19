@@ -1,0 +1,111 @@
+{
+  "users": [
+    {
+      "name": "Хо",
+      "surname": "Ри",
+      "email": "~~@q",
+      "password": "1",
+      "id": 1
+    },
+    {
+      "name": "Hori",
+      "surname": "Hori",
+      "email": "q@mail.com",
+      "password": "1",
+      "id": 2
+    },
+    {
+      "name": "Хо",
+      "surname": "Ри",
+      "email": "halimonevgeniy@gmail.com",
+      "password": "1",
+      "id": 3
+    },
+    {
+      "name": "уро",
+      "surname": "уро",
+      "email": "k@w",
+      "password": "1",
+      "id": 4
+    },
+    {
+      "name": "Хо",
+      "surname": "Ри",
+      "email": "k@wq",
+      "password": "1",
+      "id": 5
+    },
+    {
+      "name": "Kotaki",
+      "surname": "Taxes",
+      "email": "taxes@mail.com",
+      "password": "1",
+      "id": 6
+    },
+    {
+      "name": "Thalia",
+      "surname": "Thraben",
+      "email": "ini@mail.com",
+      "password": "1",
+      "id": 7
+    },
+    {
+      "name": "Джонни",
+      "surname": "Сильверхенд",
+      "email": "2077@mail.com",
+      "password": "1",
+      "id": 8
+    }
+  ],
+  "posts": [
+    {
+      "post": "ДУМ",
+      "userId": 6,
+      "likeQuantity": 1,
+      "date": "2021-08-19T09:07:34.551Z",
+      "id": 1
+    },
+    {
+      "post": "HELL",
+      "userId": 6,
+      "likeQuantity": 0,
+      "date": "2021-08-19T10:09:44.993Z",
+      "id": 2
+    },
+    {
+      "post": "rrr",
+      "userId": 6,
+      "likeQuantity": 0,
+      "date": "2021-08-19T10:23:40.948Z",
+      "id": 3
+    },
+    {
+      "post": "rrrrrrrrrrrr",
+      "userId": 6,
+      "likeQuantity": 0,
+      "date": "2021-08-19T10:25:58.191Z",
+      "id": 4
+    },
+    {
+      "post": "rrrrr34r324",
+      "userId": 6,
+      "likeQuantity": 1,
+      "date": "2021-08-19T10:27:00.251Z",
+      "id": 5
+    }
+  ],
+  "likes": [
+    {
+      "userId": 6,
+      "postId": 1,
+      "qua": 1,
+      "id": 1
+    },
+    {
+      "userId": 6,
+      "postId": 5,
+      "qua": 1,
+      "id": 2
+    }
+  ]
+}

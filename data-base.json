@@ -55,69 +55,45 @@
       "email": "2077@mail.com",
       "password": "1",
       "id": 8
+    },
+    {
+      "name": "test",
+      "surname": "test",
+      "email": "q@mail.comw",
+      "password": "3",
+      "id": 9
     }
   ],
   "posts": [
     {
-      "post": "тест",
-      "userId": 3,
-      "likeQuantity": 2,
-      "date": "2021-08-19T11:29:13.401Z",
+      "post": "Кушоем чай",
+      "userId": 7,
+      "likeQuantity": 1,
+      "date": "19.08.2021",
+      "hours": "19:48",
       "id": 1
     },
     {
-      "post": "ЗАЧИЩАЮ БОРДУ",
+      "post": "Это не военное преступление",
       "userId": 6,
       "likeQuantity": 1,
-      "date": "2021-08-19T11:39:37.449Z",
+      "date": "19.08.2021",
+      "hours": "19:58",
       "id": 2
-    },
-    {
-      "post": "qqqq",
-      "userId": 6,
-      "likeQuantity": 1,
-      "date": "2021-08-19T11:40:19.465Z",
-      "id": 3
-    },
-    {
-      "post": "1111",
-      "userId": 6,
-      "likeQuantity": 0,
-      "date": "2021-08-19T11:40:22.945Z",
-      "id": 4
-    },
-    {
-      "post": "55",
-      "userId": 6,
-      "likeQuantity": 0,
-      "date": "2021-08-19T11:42:28.716Z",
-      "id": 5
     }
   ],
   "likes": [
     {
-      "userId": 3,
+      "userId": 7,
       "postId": 1,
       "qua": 1,
       "id": 1
-    },
-    {
-      "userId": 6,
-      "postId": 1,
-      "qua": 1,
-      "id": 2
     },
     {
       "userId": 6,
       "postId": 2,
       "qua": 1,
-      "id": 3
-    },
-    {
-      "userId": 6,
-      "postId": 3,
-      "qua": 1,
-      "id": 4
+      "id": 2
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { Fetch } from "./fetches.js"
-import { GetData } from "./getDataFromStorage.js"
+import { Storage } from "./getDataFromStorage.js"
 
 const textarea = document.querySelector("textarea")
 const postBtn = document.querySelector("#submit-btn")
@@ -9,23 +9,26 @@ board.addEventListener("click", () => {
     location.href = "../html/main-board.html"
 })
 
-const account = GetData.getDataFromStorage() 
+const account = Storage.getData() 
+console.log(account)
 
 getPost()
 
 postBtn.addEventListener("click", () => {
     const body = {
         post: textarea.value,
-        userId: account[0].id,
+        userId: account,
         likeQuantity: 0,
-        date: new Date
+        date: new Date().toLocaleDateString(),
+        hours: new Date().toLocaleTimeString().slice(0,-3)
     }
     Fetch.post("posts", body)
 })
 
 async function getPost() {
-    let res= await Fetch.get(`posts?userId=${account[0].id}&_sort=likeQuantity,date&_order=desc,desc`)
+    let res= await Fetch.get(`posts?userId=${account}&_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc`)
     printPost(res)
+    console.log(res)
 }
 
 function printPost(arr) {
@@ -35,17 +38,23 @@ function printPost(arr) {
         elem.classList.add("list-item")
         const spanPost = document.createElement("span")
         const commonSpan = document.createElement("span")
+        commonSpan.style.display = "flex"
         const spanCheck = document.createElement("span")
+        spanCheck.style.display = "flex"
+        spanCheck.style.marginRight = "5px"
         const spanBio = document.createElement("span")
         const editBtn = document.createElement("button")
         editBtn.innerHTML = "Edit"
         editBtn.style.marginLeft = "5px"
         const input = document.createElement("input")
+        
         input.type = "checkbox"
         input.id = item.id
         const label = document.createElement("label")
+        label.style.paddingRight = "5px"
         label.setAttribute('for', item.id)
         const likeQua = document.createElement("p")
+
     
         elem.prepend(spanPost)
         commonSpan.appendChild(spanCheck)
@@ -59,7 +68,7 @@ function printPost(arr) {
         input.value = item.id
         label.value = item.id
 
-        const getLike = await Fetch.get(`likes?userId=${account[0].id}&postId=${item.id}`)
+        const getLike = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
         const respLike = await getLike
         if(respLike.length === 1){
             input.checked = true
@@ -67,11 +76,11 @@ function printPost(arr) {
         } 
 
         label.addEventListener("click", async () => {
-            const getLikeStatus = await Fetch.get(`likes?userId=${account[0].id}&postId=${item.id}`)
+            const getLikeStatus = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
             const respLikeStatus = await getLikeStatus
             if(respLikeStatus.length === 0 ){
                 const bodyLikes = {
-                    userId: account[0].id,
+                    userId: account,
                     postId: item.id,
                     qua: 1
                 }
@@ -86,11 +95,13 @@ function printPost(arr) {
         likeQua.innerHTML = item.likeQuantity
         spanPost.innerHTML = item.post
         spanPost.style.marginRight = "5px"
-        spanBio.innerHTML = `author: ${account[0].name} ${account[0].surname} date: ${item.date}`
+        spanBio.innerHTML = `Author: ${item.user.name} ${item.user.surname} / Date: ${item.date} ${item.hours}`
         editBtn.addEventListener("click", () => {
             editBtn.remove()
-            spanPost.innerHTML = ""
             const input = document.createElement("input")
+            input.style.width = "250px"
+            input.value = spanPost.innerHTML
+            spanPost.innerHTML = ""
             const saveBtn = document.createElement("input")
             saveBtn.type = "button"
             saveBtn.value = "Save"
@@ -114,8 +125,8 @@ function printPost(arr) {
 const logout = document.querySelector(".logout")
 logout.addEventListener("submit", (e) => {
     e.preventDefault()
+    Storage.removeData("account")
     document.location.href="../html/login.html"
-    localStorage.removeItem("account")
 })
 
 

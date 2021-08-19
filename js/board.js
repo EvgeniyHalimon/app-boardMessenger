@@ -1,5 +1,5 @@
 import { Fetch } from "./fetches.js"
-import { GetData } from "./getDataFromStorage.js"
+import { Storage } from "./getDataFromStorage.js"
 
 const h2 = document.querySelector("h2")
 h2.addEventListener("click", () => {
@@ -7,12 +7,12 @@ h2.addEventListener("click", () => {
 })
 const feedList = document.querySelector(".feed")
 
-const account = GetData.getDataFromStorage() 
+const account = Storage.getData() 
 
 getFeed()
 
 async function getFeed(){
-    const res = await Fetch.get("posts?_expand=user&_sort=like_quantity,date&_order=asc,asc")
+    const res = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
     printFeed(res)
 }
 
@@ -23,16 +23,21 @@ function printFeed(arr){
         elem.classList.add("list-item")
         const spanPost = document.createElement("span")
         const commonSpan = document.createElement("span")
+        commonSpan.style.display = "flex"
         const spanCheck = document.createElement("span")
+        spanCheck.style.display = "flex"
+        spanCheck.style.marginRight = "5px"
         const spanBio = document.createElement("span")
         const editBtn = document.createElement("button")
         editBtn.innerHTML = "Edit"
         editBtn.style.marginLeft = "5px"
         const input = document.createElement("input")
+        
         input.type = "checkbox"
         input.id = item.id
         const label = document.createElement("label")
         label.setAttribute('for', item.id)
+        label.style.paddingRight = "5px"
         const likeQua = document.createElement("p")
     
         elem.prepend(spanPost)
@@ -48,9 +53,9 @@ function printFeed(arr){
         
         input.value = item.id
         label.value = item.id
-        spanBio.innerHTML = `author: ${item.user.name} ${item.user.surname} date: ${item.date}`
+        spanBio.innerHTML = `Author: ${item.user.name} ${item.user.surname} / Date: ${item.date} ${item.hours}`
         
-        const getLike = await Fetch.get(`likes?userId=${account[0].id}&postId=${item.id}`)
+        const getLike = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
         const respLike = await getLike
         
         if(respLike.length === 1){
@@ -59,11 +64,11 @@ function printFeed(arr){
         } 
 
         label.addEventListener("click", async () => {
-            const getLikeStatus = await Fetch.get(`likes?userId=${account[0].id}&postId=${item.id}`)
+            const getLikeStatus = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
             const respLikeStatus = await getLikeStatus
             if(respLikeStatus.length === 0 ){
                 const bodyLikes = {
-                    userId: account[0].id,
+                    userId: account,
                     postId: item.id,
                     qua: 1
                 }
@@ -79,14 +84,16 @@ function printFeed(arr){
         spanPost.innerHTML = item.post
         spanPost.style.marginRight = "5px"
 
-        if(account[0].id !== arr.userId){
+        if(account !== item.userId){
             editBtn.remove()
         }
 
         editBtn.addEventListener("click", () => {
             editBtn.remove()
-            spanPost.innerHTML = ""
+            
             const input = document.createElement("input")
+            input.value = spanPost.innerHTML
+            spanPost.innerHTML = ""
             const saveBtn = document.createElement("input")
             saveBtn.type = "button"
             saveBtn.value = "Save"

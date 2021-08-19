@@ -59,53 +59,65 @@
   ],
   "posts": [
     {
-      "post": "ДУМ",
-      "userId": 6,
-      "likeQuantity": 1,
-      "date": "2021-08-19T09:07:34.551Z",
+      "post": "тест",
+      "userId": 3,
+      "likeQuantity": 2,
+      "date": "2021-08-19T11:29:13.401Z",
       "id": 1
     },
     {
-      "post": "HELL",
+      "post": "ЗАЧИЩАЮ БОРДУ",
       "userId": 6,
-      "likeQuantity": 0,
-      "date": "2021-08-19T10:09:44.993Z",
+      "likeQuantity": 1,
+      "date": "2021-08-19T11:39:37.449Z",
       "id": 2
     },
     {
-      "post": "rrr",
+      "post": "qqqq",
       "userId": 6,
-      "likeQuantity": 0,
-      "date": "2021-08-19T10:23:40.948Z",
+      "likeQuantity": 1,
+      "date": "2021-08-19T11:40:19.465Z",
       "id": 3
     },
     {
-      "post": "rrrrrrrrrrrr",
+      "post": "1111",
       "userId": 6,
       "likeQuantity": 0,
-      "date": "2021-08-19T10:25:58.191Z",
+      "date": "2021-08-19T11:40:22.945Z",
       "id": 4
     },
     {
-      "post": "rrrrr34r324",
+      "post": "55",
       "userId": 6,
-      "likeQuantity": 1,
-      "date": "2021-08-19T10:27:00.251Z",
+      "likeQuantity": 0,
+      "date": "2021-08-19T11:42:28.716Z",
       "id": 5
     }
   ],
   "likes": [
     {
-      "userId": 6,
+      "userId": 3,
       "postId": 1,
       "qua": 1,
       "id": 1
     },
     {
       "userId": 6,
-      "postId": 5,
+      "postId": 1,
       "qua": 1,
       "id": 2
+    },
+    {
+      "userId": 6,
+      "postId": 2,
+      "qua": 1,
+      "id": 3
+    },
+    {
+      "userId": 6,
+      "postId": 3,
+      "qua": 1,
+      "id": 4
     }
   ]
 }

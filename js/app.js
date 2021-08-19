@@ -10,18 +10,6 @@ board.addEventListener("click", () => {
 })
 
 const account = GetData.getDataFromStorage() 
-console.log(account)
-
-/* let account = []
-
-getDataFromStorage()
-function getDataFromStorage() {
-    const getData = localStorage.getItem("account")
-    const parseData = JSON.parse(getData)
-    if(parseData){
-        account = parseData
-    }
-} */
 
 getPost()
 
@@ -36,7 +24,7 @@ postBtn.addEventListener("click", () => {
 })
 
 async function getPost() {
-    let res= await Fetch.get(`posts?user_id=${account[0].id}&_sort=likeQuantity,date&_order=desc,desc`)
+    let res= await Fetch.get(`posts?userId=${account[0].id}&_sort=likeQuantity,date&_order=desc,desc`)
     printPost(res)
 }
 
@@ -68,20 +56,15 @@ function printPost(arr) {
         spanCheck.appendChild(input)
         spanCheck.appendChild(label)
         spanCheck.appendChild(likeQua)
-        
         input.value = item.id
         label.value = item.id
 
-        
         const getLike = await Fetch.get(`likes?userId=${account[0].id}&postId=${item.id}`)
         const respLike = await getLike
-        console.log(respLike)
-        
         if(respLike.length === 1){
             input.checked = true
             input.disabled = true
         } 
-        
 
         label.addEventListener("click", async () => {
             const getLikeStatus = await Fetch.get(`likes?userId=${account[0].id}&postId=${item.id}`)
@@ -127,9 +110,6 @@ function printPost(arr) {
     })
     
 }
-
-
-    
 
 const logout = document.querySelector(".logout")
 logout.addEventListener("submit", (e) => {

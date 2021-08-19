@@ -1,4 +1,5 @@
 import { Fetch } from "./fetches.js"
+import { GetData } from "./getDataFromStorage.js"
 
 const h2 = document.querySelector("h2")
 h2.addEventListener("click", () => {
@@ -6,38 +7,18 @@ h2.addEventListener("click", () => {
 })
 const feedList = document.querySelector(".feed")
 
-let account = []
+const account = GetData.getDataFromStorage() 
 
-getDataFromStorage()
-function getDataFromStorage() {
-    const getData = localStorage.getItem("account")
-    const parseData = JSON.parse(getData)
-    if(parseData){
-        account = parseData
-    }
-}
+getFeed()
 
-/* getFeed() */
-
-/* async function getFeed(){
-    const res = await Fetch.get("posts?_sort=like_quantity,date&_order=desc,desc")
+async function getFeed(){
+    const res = await Fetch.get("posts?_expand=user&_sort=like_quantity,date&_order=asc,asc")
     printFeed(res)
-} */
-
-async function getName(){
-    const user_id = 2
-    const users = await Fetch.get("posts?_expand=user")
-    console.log(users)
-    /* if(users.id === user_id){
-        spanBio.innerHTML = `author: ${users[0].name} ${users[0].surname} date: ${date}`
-    } */
 }
-getName()
 
 function printFeed(arr){
     feedList.innerHTML = ""
     arr.forEach(async(item) => {
-        console.log(item)
         const elem = document.createElement("li")
         elem.classList.add("list-item")
         const spanPost = document.createElement("span")
@@ -52,7 +33,7 @@ function printFeed(arr){
         input.id = item.id
         const label = document.createElement("label")
         label.setAttribute('for', item.id)
-        const likeQuantity = document.createElement("p")
+        const likeQua = document.createElement("p")
     
         elem.prepend(spanPost)
         commonSpan.appendChild(spanCheck)
@@ -62,46 +43,43 @@ function printFeed(arr){
         feedList.appendChild(elem)
         spanCheck.appendChild(input)
         spanCheck.appendChild(label)
-        spanCheck.appendChild(likeQuantity)
+        spanCheck.appendChild(likeQua)
         feedList.appendChild(elem)
         
         input.value = item.id
         label.value = item.id
-
+        spanBio.innerHTML = `author: ${item.user.name} ${item.user.surname} date: ${item.date}`
         
-            const getLikes = await Fetch.get(`likes?user_id=${account[0].id}&post_id=${id}`)
-            const responseLikes = await getLikes
-            if(responseLikes.length === 1){
-                input.checked = true
-                input.disabled = true
-            } 
+        const getLike = await Fetch.get(`likes?userId=${account[0].id}&postId=${item.id}`)
+        const respLike = await getLike
         
+        if(respLike.length === 1){
+            input.checked = true
+            input.disabled = true
+        } 
 
-        label.addEventListener("click", () => {
-            const test = await Fetch.get(`likes?user_id=${account[0].id}&post_id=${id}`)
-            const resp = await test
-            if(resp.length === 0){
+        label.addEventListener("click", async () => {
+            const getLikeStatus = await Fetch.get(`likes?userId=${account[0].id}&postId=${item.id}`)
+            const respLikeStatus = await getLikeStatus
+            if(respLikeStatus.length === 0 ){
                 const bodyLikes = {
-                    user_id: account[0].id,
-                    post_id: id,
+                    userId: account[0].id,
+                    postId: item.id,
                     qua: 1
                 }
                 Fetch.post("likes", bodyLikes)
                 const body = {
-                    like_quantity: like_quantity + 1
+                    likeQuantity: item.likeQuantity + 1
                 }
-                Fetch.patch(`posts/${id}`, body)
+                Fetch.patch(`posts/${item.id}`, body)
             }
         })
 
-        likeQuantity.innerHTML = `${like_quantity}`
-        spanPost.innerHTML = `${post}`
+        likeQua.innerHTML = item.likeQuantity
+        spanPost.innerHTML = item.post
         spanPost.style.marginRight = "5px"
-        
 
-        
-
-        if(account[0].id !== arr[i].user_id){
+        if(account[0].id !== arr.userId){
             editBtn.remove()
         }
 
@@ -122,8 +100,8 @@ function printFeed(arr){
                 const body = {
                     post: input.value
                 }
-            Fetch.patch(`posts/${id}`, body) 
+            Fetch.patch(`posts/${item.id}`, body) 
             })
-        }) 
+        })
     })
-}
+} 

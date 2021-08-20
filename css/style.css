@@ -138,6 +138,10 @@ input[type="checkbox"] {
   display: none;
 }
 
+label{
+  padding-right: 5px;
+}
+
 label::before {
   content: '';
   display: inline-block;
@@ -151,4 +155,26 @@ input[type="checkbox"]:checked + label::before {
   content: '';
   background-image: url(../img/heart.svg);
   cursor: pointer;
+}
+
+.common-span{
+  display: flex;
+}
+
+.span-check{
+  display: flex;
+  margin-right: 5px;
+}
+
+.edit-btn{
+  margin-left: 5px;
+}
+
+.span-post{
+  margin-right: 5px;
+}
+
+.edit-input{
+  width: 250px;
+  margin-right: 5px;
 }

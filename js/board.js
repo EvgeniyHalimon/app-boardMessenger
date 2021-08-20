@@ -22,22 +22,19 @@ function printFeed(arr){
         const elem = document.createElement("li")
         elem.classList.add("list-item")
         const spanPost = document.createElement("span")
+        spanPost.classList.add("span-post")
         const commonSpan = document.createElement("span")
-        commonSpan.style.display = "flex"
+        commonSpan.classList.add("common-span")
         const spanCheck = document.createElement("span")
-        spanCheck.style.display = "flex"
-        spanCheck.style.marginRight = "5px"
+        spanCheck.classList.add("span-check")
         const spanBio = document.createElement("span")
         const editBtn = document.createElement("button")
         editBtn.innerHTML = "Edit"
-        editBtn.style.marginLeft = "5px"
         const input = document.createElement("input")
-        
         input.type = "checkbox"
         input.id = item.id
         const label = document.createElement("label")
         label.setAttribute('for', item.id)
-        label.style.paddingRight = "5px"
         const likeQua = document.createElement("p")
     
         elem.prepend(spanPost)
@@ -50,10 +47,11 @@ function printFeed(arr){
         spanCheck.appendChild(label)
         spanCheck.appendChild(likeQua)
         feedList.appendChild(elem)
-        
         input.value = item.id
         label.value = item.id
         spanBio.innerHTML = `Author: ${item.user.name} ${item.user.surname} / Date: ${item.date} ${item.hours}`
+        likeQua.innerHTML = item.likeQuantity
+        spanPost.innerHTML = item.post
         
         const getLike = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
         const respLike = await getLike
@@ -80,17 +78,12 @@ function printFeed(arr){
             }
         })
 
-        likeQua.innerHTML = item.likeQuantity
-        spanPost.innerHTML = item.post
-        spanPost.style.marginRight = "5px"
-
         if(account !== item.userId){
             editBtn.remove()
         }
 
         editBtn.addEventListener("click", () => {
             editBtn.remove()
-            
             const input = document.createElement("input")
             input.value = spanPost.innerHTML
             spanPost.innerHTML = ""
@@ -98,7 +91,6 @@ function printFeed(arr){
             saveBtn.type = "button"
             saveBtn.value = "Save"
             input.type = "text"
-            input.style.marginRight = "5px"
             spanPost.prepend(input)
             spanPost.appendChild(saveBtn)
             saveBtn.addEventListener("click", () => {

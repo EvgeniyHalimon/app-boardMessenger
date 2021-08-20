@@ -7,9 +7,9 @@ const email = document.querySelector("#email")
 const password = document.querySelector("#password")
 const passwordRepeat = document.querySelector("#repeat_password")
 
-formList.addEventListener("submit", test)
+formList.addEventListener("submit", registerUser)
 
-async function test(e) {
+async function registerUser(e) {
     e.preventDefault()
     const res = await Fetch.get(`users?email=${email.value}`)
     if(res.length > 0){

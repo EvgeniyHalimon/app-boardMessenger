@@ -1,14 +1,11 @@
 export class Fetch{
-    static get(data){
-        return fetch(`http://localhost:3000/${data}`)
+    static get(url){
+        return fetch(`http://localhost:3000/${url}`)
         .then(response => response.json())
-        .then(data =>{
-            return data
-        })
     }
 
-    static post(data,body){
-        return fetch(`http://localhost:3000/${data}`,{
+    static post(url,body){
+        return fetch(`http://localhost:3000/${url}`,{
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -17,8 +14,8 @@ export class Fetch{
         })
     }
 
-    static patch(data,body){
-        return fetch(`http://localhost:3000/${data}`,{
+    static patch(url,body){
+        return fetch(`http://localhost:3000/${url}`,{
             method: "PATCH",
             body: JSON.stringify(body),
             headers: {

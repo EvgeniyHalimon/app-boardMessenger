@@ -5,7 +5,9 @@ const loginForm = document.querySelector(".login-form")
 const loginEmail = document.querySelector("#login-email")
 const loginPassword = document.querySelector("#login-password")
 
-loginForm.addEventListener("submit", async(e) => {
+loginForm.addEventListener("submit", loginUser)
+
+async function loginUser(e) {
     e.preventDefault()
     const res = await Fetch.get(`users?email=${loginEmail.value}`)
     if(res.length === 0){
@@ -16,5 +18,5 @@ loginForm.addEventListener("submit", async(e) => {
     }
     Storage.setData("account",res[0].id)
     document.location.href="../html/app.html" 
-})
+}
 

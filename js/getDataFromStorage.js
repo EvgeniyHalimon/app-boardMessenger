@@ -5,11 +5,11 @@ export class Storage{
         return parseData
     }
 
-    static setData(string,data){
-        localStorage.setItem(string, JSON.stringify(data))
+    static setData(key,value){
+        localStorage.setItem(key, JSON.stringify(value))
     }
 
-    static removeData(string){
-        localStorage.removeItem(string)
+    static removeData(key){
+        localStorage.removeItem(key)
     }
 }

@@ -66,34 +66,60 @@
   ],
   "posts": [
     {
-      "post": "Кушоем чай",
-      "userId": 7,
-      "likeQuantity": 1,
-      "date": "19.08.2021",
-      "hours": "19:48",
+      "post": "e",
+      "userId": 1,
+      "likeQuantity": 0,
+      "date": "20.08.2021",
+      "hours": "14:22",
       "id": 1
     },
     {
-      "post": "Это не военное преступление",
-      "userId": 6,
-      "likeQuantity": 1,
-      "date": "19.08.2021",
-      "hours": "19:58",
+      "post": "e",
+      "userId": 1,
+      "likeQuantity": 0,
+      "date": "20.08.2021",
+      "hours": "14:22",
       "id": 2
+    },
+    {
+      "post": "3",
+      "userId": 1,
+      "likeQuantity": 0,
+      "date": "20.08.2021",
+      "hours": "14:23",
+      "id": 3
+    },
+    {
+      "post": "ввв",
+      "userId": 1,
+      "likeQuantity": 0,
+      "date": "20.08.2021",
+      "hours": "14:24",
+      "id": 4
+    },
+    {
+      "post": "в",
+      "userId": 1,
+      "likeQuantity": 1,
+      "date": "20.08.2021",
+      "hours": "14:28",
+      "id": 5
+    },
+    {
+      "post": "в",
+      "userId": 1,
+      "likeQuantity": 0,
+      "date": "20.08.2021",
+      "hours": "14:28",
+      "id": 6
     }
   ],
   "likes": [
     {
-      "userId": 7,
-      "postId": 1,
+      "userId": 1,
+      "postId": 5,
       "qua": 1,
       "id": 1
-    },
-    {
-      "userId": 6,
-      "postId": 2,
-      "qua": 1,
-      "id": 2
     }
   ]
 }

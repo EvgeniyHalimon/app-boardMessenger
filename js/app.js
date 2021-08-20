@@ -73,7 +73,6 @@ async function printPost() {
         label.addEventListener("click", async () => {
             const getLikeStatus = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
             const respLikeStatus = await getLikeStatus
-            console.log(respLikeStatus.length)
             if(respLikeStatus.length === 0){
                 const bodyLikes = {
                     userId: account,

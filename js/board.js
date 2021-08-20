@@ -9,16 +9,11 @@ const feedList = document.querySelector(".feed")
 
 const account = Storage.getData() 
 
-getFeed()
+printFeed()
 
-async function getFeed(){
-    const res = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
-    printFeed(res)
-}
-
-function printFeed(arr){
-    feedList.innerHTML = ""
-    arr.forEach(async(item) => {
+async function printFeed(){
+    const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
+    posts.forEach(async(item) => {
         const elem = document.createElement("li")
         elem.classList.add("list-item")
         const spanPost = document.createElement("span")
@@ -70,11 +65,13 @@ function printFeed(arr){
                     postId: item.id,
                     qua: 1
                 }
-                Fetch.post("likes", bodyLikes)
+                await Fetch.post("likes", bodyLikes)
                 const body = {
                     likeQuantity: item.likeQuantity + 1
                 }
-                Fetch.patch(`posts/${item.id}`, body)
+                await Fetch.patch(`posts/${item.id}`, body)
+                const currentLike = await Fetch.get(`posts/${item.id}`)
+                likeQua.innerHTML = currentLike.likeQuantity
             }
         })
 
@@ -83,8 +80,9 @@ function printFeed(arr){
         }
 
         editBtn.addEventListener("click", () => {
-            editBtn.remove()
+            editBtn.style.display = "none"
             const input = document.createElement("input")
+            input.classList.add("edit-input")
             input.value = spanPost.innerHTML
             spanPost.innerHTML = ""
             const saveBtn = document.createElement("input")
@@ -93,13 +91,15 @@ function printFeed(arr){
             input.type = "text"
             spanPost.prepend(input)
             spanPost.appendChild(saveBtn)
-            saveBtn.addEventListener("click", () => {
+            saveBtn.addEventListener("click", async () => {
                 input.remove()
                 saveBtn.remove()
                 const body = {
                     post: input.value
                 }
-            Fetch.patch(`posts/${item.id}`, body) 
+            await Fetch.patch(`posts/${item.id}`, body) 
+            spanPost.innerHTML = currentValue.post
+            editBtn.style.display = "block"
             })
         })
     })

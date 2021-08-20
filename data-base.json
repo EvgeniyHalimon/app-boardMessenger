@@ -66,60 +66,90 @@
   ],
   "posts": [
     {
-      "post": "e",
-      "userId": 1,
-      "likeQuantity": 0,
+      "post": "qwertyqwerty",
+      "userId": 6,
+      "likeQuantity": 1,
       "date": "20.08.2021",
-      "hours": "14:22",
+      "hours": "16:33",
       "id": 1
     },
     {
-      "post": "e",
-      "userId": 1,
-      "likeQuantity": 0,
+      "post": "44",
+      "userId": 6,
+      "likeQuantity": 1,
       "date": "20.08.2021",
-      "hours": "14:22",
+      "hours": "16:33",
       "id": 2
     },
     {
-      "post": "3",
-      "userId": 1,
-      "likeQuantity": 0,
+      "post": "ггггг",
+      "userId": 6,
+      "likeQuantity": 1,
       "date": "20.08.2021",
-      "hours": "14:23",
+      "hours": "16:42",
       "id": 3
     },
     {
-      "post": "ввв",
-      "userId": 1,
-      "likeQuantity": 0,
+      "post": "rrrr",
+      "userId": 6,
+      "likeQuantity": 1,
       "date": "20.08.2021",
-      "hours": "14:24",
+      "hours": "16:51",
       "id": 4
     },
     {
-      "post": "в",
-      "userId": 1,
+      "post": "555",
+      "userId": 6,
       "likeQuantity": 1,
       "date": "20.08.2021",
-      "hours": "14:28",
+      "hours": "16:52",
       "id": 5
     },
     {
-      "post": "в",
-      "userId": 1,
-      "likeQuantity": 0,
+      "post": "55555",
+      "userId": 6,
+      "likeQuantity": 1,
       "date": "20.08.2021",
-      "hours": "14:28",
+      "hours": "16:52",
       "id": 6
     }
   ],
   "likes": [
     {
-      "userId": 1,
-      "postId": 5,
+      "userId": 6,
+      "postId": 1,
       "qua": 1,
       "id": 1
+    },
+    {
+      "userId": 6,
+      "postId": 2,
+      "qua": 1,
+      "id": 2
+    },
+    {
+      "userId": 6,
+      "postId": 3,
+      "qua": 1,
+      "id": 3
+    },
+    {
+      "userId": 6,
+      "postId": 4,
+      "qua": 1,
+      "id": 4
+    },
+    {
+      "userId": 6,
+      "postId": 5,
+      "qua": 1,
+      "id": 5
+    },
+    {
+      "userId": 6,
+      "postId": 6,
+      "qua": 1,
+      "id": 6
     }
   ]
 }

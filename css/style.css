@@ -116,18 +116,26 @@ h2{
 }
 
 .list-block{
-  display: flex;
-  justify-content: center;
+  width: 440px;
+  margin: 0 auto;
 }
 
-.list-block li{
+.feed{
   margin-bottom: 5px;
+}
+
+.feed li{
+  margin-bottom: 5px;
+}
+
+.feed li:last-child{
+  margin-bottom: 0;
 }
 
 .list-item{
   border: 1px solid grey;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px 20px 10px 20px;
 }
 
 button,input[type="submit"],input[type="button"] {
@@ -159,6 +167,7 @@ input[type="checkbox"]:checked + label::before {
 
 .common-span{
   display: flex;
+  justify-content: space-between;
 }
 
 .span-check{
@@ -171,10 +180,42 @@ input[type="checkbox"]:checked + label::before {
 }
 
 .span-post{
-  margin-right: 5px;
+  margin: 0 5px 5px 0;
 }
 
 .edit-input{
   width: 250px;
   margin-right: 5px;
+}
+
+.opt-block{
+  margin: 0 auto 10px auto;
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+select{
+  width: 200px;
+}
+
+.pages{
+  display: flex;
+}
+
+.pages li{
+  margin-right: 5px;
+}
+
+.pages li:last-child{
+  margin-right: 0;
+}
+
+.pages-elem{
+  width: 20px;
+  height: 20px;
+}
+
+.page-active{
+  background: purple;
 }

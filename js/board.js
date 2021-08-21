@@ -9,11 +9,43 @@ const feedList = document.querySelector(".feed")
 
 const account = Storage.getData() 
 
-printFeed()
+const select = document.querySelector("select")
+const selectBtn = document.querySelector(".select-btn")
+const pagesList = document.querySelector(".pages")
 
-async function printFeed(){
+getFeed()
+async function getFeed(){
     const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
-    posts.forEach(async(item) => {
+    printFeed(posts)
+}
+
+selectBtn.addEventListener("click", async () => {
+    const getLength = await Fetch.get("posts")
+    const getFirstPage = await Fetch.get(`posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc&_page=1&_limit=${select.value}`) 
+    printFeed(getFirstPage)
+    const pageQua = Math.ceil(getLength.length / select.value)
+    pagesList.innerHTML = ""
+    for (let i = 0; i < pageQua; i++) {
+        const elem = document.createElement("li")
+        const page = document.createElement("button")
+        page.id = i + 1
+        console.log()
+        page.addEventListener("click", async (e) => {
+            e.currentTarget.classList.add("page-active")
+            const getPage = await Fetch.get(`posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc&_page=${page.id}&_limit=${select.value}`)
+            printFeed(getPage)
+        })
+        page.classList.add("pages-elem")
+        page.innerHTML = i + 1
+        elem.appendChild(page)
+        pagesList.appendChild(elem)
+    }
+    
+})
+
+async function printFeed(arr){
+    feedList.innerHTML = ""
+    arr.forEach(async(item) => {
         const elem = document.createElement("li")
         elem.classList.add("list-item")
         const spanPost = document.createElement("span")
@@ -24,6 +56,7 @@ async function printFeed(){
         spanCheck.classList.add("span-check")
         const spanBio = document.createElement("span")
         const editBtn = document.createElement("button")
+        editBtn.classList.add("edit-btn")
         editBtn.innerHTML = "Edit"
         const input = document.createElement("input")
         input.type = "checkbox"
@@ -50,7 +83,6 @@ async function printFeed(){
         
         const getLike = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
         const respLike = await getLike
-        
         if(respLike.length === 1){
             input.checked = true
             input.disabled = true
@@ -59,7 +91,7 @@ async function printFeed(){
         label.addEventListener("click", async () => {
             const getLikeStatus = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
             const respLikeStatus = await getLikeStatus
-            if(respLikeStatus.length === 0 ){
+            if(respLikeStatus.length === 0){
                 const bodyLikes = {
                     userId: account,
                     postId: item.id,
@@ -70,8 +102,8 @@ async function printFeed(){
                     likeQuantity: item.likeQuantity + 1
                 }
                 await Fetch.patch(`posts/${item.id}`, body)
-                const currentLike = await Fetch.get(`posts/${item.id}`)
-                likeQua.innerHTML = currentLike.likeQuantity
+                const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
+                printFeed(posts)
             }
         })
 
@@ -97,10 +129,13 @@ async function printFeed(){
                 const body = {
                     post: input.value
                 }
-            await Fetch.patch(`posts/${item.id}`, body) 
-            spanPost.innerHTML = currentValue.post
+            await Fetch.patch(`posts/${item.id}`, body)
+            spanBio.innerHTML = `Author: ${item.user.name} ${item.user.surname} / Date: ${item.date} ${item.hours} ` 
             editBtn.style.display = "block"
+            const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
+            printFeed(posts)
             })
         })
     })
 } 
+

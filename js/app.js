@@ -23,6 +23,7 @@ postBtn.addEventListener("click", async () => {
     }
     await Fetch.post("posts", body)
     printPost()
+    textarea.value = ""
 })
 
 async function printPost() {
@@ -84,8 +85,7 @@ async function printPost() {
                     likeQuantity: item.likeQuantity + 1
                 }
                 await Fetch.patch(`posts/${item.id}`, body)
-                const currentLike = await Fetch.get(`posts/${item.id}`)
-                likeQua.innerHTML = currentLike.likeQuantity
+                printPost()
             }
         })
 
@@ -107,10 +107,9 @@ async function printPost() {
                 const body = {
                     post: input.value
                 }
-            await Fetch.patch(`posts/${item.id}`, body) 
-            const currentValue = await Fetch.get(`posts/${item.id}`)
-            spanPost.innerHTML = currentValue.post
+            await Fetch.patch(`posts/${item.id}`, body)
             editBtn.style.display = "block"
+            printPost()
             })
         })
     })

@@ -66,184 +66,94 @@
   ],
   "posts": [
     {
-      "post": "ssssss",
-      "userId": 6,
-      "likeQuantity": 2,
-      "date": "21.08.2021",
-      "hours": "11:41",
+      "post": "test",
+      "userId": 7,
+      "likeQuantity": 4,
+      "date": "23.08.2021",
+      "hours": "16:23",
       "id": 1
     },
     {
-      "post": "rrrr",
-      "userId": 6,
-      "likeQuantity": 2,
-      "date": "21.08.2021",
-      "hours": "11:44",
+      "post": "TAXES",
+      "userId": 7,
+      "likeQuantity": 0,
+      "date": "23.08.2021",
+      "hours": "16:23",
       "id": 2
     },
     {
-      "post": "йййййййй",
+      "post": "WAR",
       "userId": 6,
-      "likeQuantity": 0,
-      "date": "21.08.2021",
-      "hours": "12:51",
+      "likeQuantity": 1,
+      "date": "23.08.2021",
+      "hours": "16:23",
       "id": 3
     },
     {
-      "post": "уууууууууу",
-      "userId": 6,
-      "likeQuantity": 1,
-      "date": "21.08.2021",
-      "hours": "12:51",
+      "post": "URO",
+      "userId": 4,
+      "likeQuantity": 3,
+      "date": "23.08.2021",
+      "hours": "16:24",
       "id": 4
     },
     {
-      "post": "кккккккккккк",
-      "userId": 6,
-      "likeQuantity": 1,
-      "date": "21.08.2021",
-      "hours": "12:51",
+      "post": "1234567890",
+      "userId": 1,
+      "likeQuantity": 0,
+      "date": "23.08.2021",
+      "hours": "16:25",
       "id": 5
-    },
-    {
-      "post": "еееееееее",
-      "userId": 6,
-      "likeQuantity": 1,
-      "date": "21.08.2021",
-      "hours": "12:51",
-      "id": 6
-    },
-    {
-      "post": "ннннннннн",
-      "userId": 6,
-      "likeQuantity": 2,
-      "date": "21.08.2021",
-      "hours": "12:51",
-      "id": 7
-    },
-    {
-      "post": "гггггггггг",
-      "userId": 6,
-      "likeQuantity": 2,
-      "date": "21.08.2021",
-      "hours": "12:51",
-      "id": 8
-    },
-    {
-      "post": "ффффффффффф",
-      "userId": 6,
-      "likeQuantity": 2,
-      "date": "21.08.2021",
-      "hours": "12:52",
-      "id": 9
-    },
-    {
-      "post": "ffff",
-      "userId": 7,
-      "likeQuantity": 1,
-      "date": "21.08.2021",
-      "hours": "15:39",
-      "id": 10
-    },
-    {
-      "post": "asdf",
-      "userId": 7,
-      "likeQuantity": 1,
-      "date": "21.08.2021",
-      "hours": "15:48",
-      "id": 11
     }
   ],
   "likes": [
     {
-      "userId": 6,
+      "userId": 7,
       "postId": 1,
       "qua": 1,
       "id": 1
     },
     {
       "userId": 6,
-      "postId": 2,
+      "postId": 3,
       "qua": 1,
       "id": 2
     },
     {
       "userId": 6,
-      "postId": 7,
+      "postId": 1,
       "qua": 1,
       "id": 3
     },
     {
-      "userId": 6,
-      "postId": 8,
+      "userId": 4,
+      "postId": 4,
       "qua": 1,
       "id": 4
     },
     {
-      "userId": 6,
-      "postId": 9,
+      "userId": 4,
+      "postId": 1,
       "qua": 1,
       "id": 5
     },
     {
-      "userId": 7,
-      "postId": 10,
+      "userId": 1,
+      "postId": 1,
       "qua": 1,
       "id": 6
     },
     {
-      "userId": 7,
-      "postId": 9,
+      "userId": 1,
+      "postId": 4,
       "qua": 1,
       "id": 7
-    },
-    {
-      "userId": 7,
-      "postId": 7,
-      "qua": 1,
-      "id": 8
-    },
-    {
-      "userId": 7,
-      "postId": 8,
-      "qua": 1,
-      "id": 9
-    },
-    {
-      "userId": 7,
-      "postId": 2,
-      "qua": 1,
-      "id": 10
-    },
-    {
-      "userId": 7,
-      "postId": 11,
-      "qua": 1,
-      "id": 11
     },
     {
       "userId": 7,
       "postId": 4,
       "qua": 1,
-      "id": 12
-    },
-    {
-      "userId": 7,
-      "postId": 1,
-      "qua": 1,
-      "id": 13
-    },
-    {
-      "userId": 7,
-      "postId": 6,
-      "qua": 1,
-      "id": 14
-    },
-    {
-      "userId": 7,
-      "postId": 5,
-      "qua": 1,
-      "id": 15
+      "id": 8
     }
   ]
 }

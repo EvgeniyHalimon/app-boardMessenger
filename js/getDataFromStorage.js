@@ -1,6 +1,6 @@
 export class Storage{
-    static getData(){
-        const getData = localStorage.getItem("account")
+    static getData(key){
+        const getData = localStorage.getItem(key)
         const parseData = JSON.parse(getData)
         return parseData
     }

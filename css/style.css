@@ -120,6 +120,14 @@ h2{
   margin: 0 auto;
 }
 
+.posts li{
+  margin-bottom: 5px;
+}
+
+.posts li:last-child{
+  margin-bottom: 0;
+}
+
 .feed{
   margin-bottom: 5px;
 }
@@ -170,13 +178,9 @@ input[type="checkbox"]:checked + label::before {
   justify-content: space-between;
 }
 
-.span-check{
-  display: flex;
-  margin-right: 5px;
-}
-
 .edit-btn{
-  margin-left: 5px;
+  width: 30px;
+  height: 20px;
 }
 
 .span-post{
@@ -217,5 +221,24 @@ select{
 }
 
 .page-active{
+  width: 20px;
+  height: 20px;
   background: purple;
+}
+
+.link-to-list{
+  font-size: 10px;
+}
+
+.users-block{
+  width: 500px;
+  margin: 10px auto 0 auto;
+}
+
+.users-list li{
+  margin-bottom: 5px;
+}
+
+.users-list li:last-child{
+  margin-bottom: 0;
 }

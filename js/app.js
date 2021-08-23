@@ -9,7 +9,7 @@ board.addEventListener("click", () => {
     location.href = "../html/main-board.html"
 })
 
-const account = Storage.getData() 
+const account = Storage.getData("account") 
 
 printPost()
 
@@ -37,7 +37,6 @@ async function printPost() {
         const commonSpan = document.createElement("span")
         commonSpan.classList.add("common-span")
         const spanCheck = document.createElement("span")
-        spanCheck.classList.add("span-check")
         const spanBio = document.createElement("span")
         const editBtn = document.createElement("button")
         editBtn.classList.add("edit-btn")
@@ -48,7 +47,6 @@ async function printPost() {
         const label = document.createElement("label")
         label.setAttribute('for', item.id)
         const likeQua = document.createElement("p")
-
         elem.prepend(spanPost)
         commonSpan.appendChild(spanCheck)
         commonSpan.appendChild(spanBio)
@@ -89,7 +87,34 @@ async function printPost() {
             }
         })
 
+        const link = document.createElement("a")
+        link.classList.add("link-to-list")
+        link.innerHTML = "Увидеть всех"
+        link.href = `../html/like-list.html?postId=${item.id}`
+
+        label.addEventListener("mouseover", async () => {
+            const usersLike = await Fetch.get(`likes?postId=${item.id}&_expand=user`)
+            label.innerHTML = ""
+            link.style.display = "block"
+            for (let i = 0; i < usersLike.length; i++) {
+                const names = document.createElement("p")
+                names.innerHTML = usersLike[i].user.name
+                label.prepend(names)
+                if(i === 2){
+                    label.appendChild(link)
+                    break
+                }
+            }
+            label.addEventListener("mouseout", async () => {
+                setTimeout(() => {
+                    link.style.display = "none"
+                    label.innerHTML = ""
+                }, 1000)
+            })
+        })
+
         editBtn.addEventListener("click", () => {
+            console.log(item.id)
             editBtn.style.display = "none"
             const input = document.createElement("input")
             input.classList.add("edit-input")

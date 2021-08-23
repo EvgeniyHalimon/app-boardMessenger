@@ -7,7 +7,7 @@ h2.addEventListener("click", () => {
 })
 const feedList = document.querySelector(".feed")
 
-const account = Storage.getData() 
+const account = Storage.getData("account") 
 
 const select = document.querySelector("select")
 const selectBtn = document.querySelector(".select-btn")
@@ -28,19 +28,24 @@ selectBtn.addEventListener("click", async () => {
     for (let i = 0; i < pageQua; i++) {
         const elem = document.createElement("li")
         const page = document.createElement("button")
+        page.classList.add("pages-elem")
         page.id = i + 1
+        if(page.id == 1){
+            page.classList.add("page-active")
+        }
         console.log()
         page.addEventListener("click", async (e) => {
+            const pageActive = document.querySelector(".page-active")
             e.currentTarget.classList.add("page-active")
+            pageActive.classList.remove("page-active")
             const getPage = await Fetch.get(`posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc&_page=${page.id}&_limit=${select.value}`)
             printFeed(getPage)
         })
-        page.classList.add("pages-elem")
+        
         page.innerHTML = i + 1
         elem.appendChild(page)
         pagesList.appendChild(elem)
     }
-    
 })
 
 async function printFeed(arr){
@@ -53,7 +58,6 @@ async function printFeed(arr){
         const commonSpan = document.createElement("span")
         commonSpan.classList.add("common-span")
         const spanCheck = document.createElement("span")
-        spanCheck.classList.add("span-check")
         const spanBio = document.createElement("span")
         const editBtn = document.createElement("button")
         editBtn.classList.add("edit-btn")
@@ -64,7 +68,6 @@ async function printFeed(arr){
         const label = document.createElement("label")
         label.setAttribute('for', item.id)
         const likeQua = document.createElement("p")
-    
         elem.prepend(spanPost)
         commonSpan.appendChild(spanCheck)
         commonSpan.appendChild(spanBio)
@@ -73,7 +76,7 @@ async function printFeed(arr){
         feedList.appendChild(elem)
         spanCheck.appendChild(input)
         spanCheck.appendChild(label)
-        spanCheck.appendChild(likeQua)
+        spanCheck.prepend(likeQua)
         feedList.appendChild(elem)
         input.value = item.id
         label.value = item.id
@@ -107,6 +110,32 @@ async function printFeed(arr){
             }
         })
 
+        const link = document.createElement("a")
+        link.classList.add("link-to-list")
+        link.innerHTML = "Увидеть всех"
+        link.href = `../html/like-list.html?postId=${item.id}`
+
+        label.addEventListener("mouseover", async () => {
+            const usersLike = await Fetch.get(`likes?postId=${item.id}&_expand=user`)
+            label.innerHTML = ""
+            link.style.display = "block"
+            for (let i = 0; i < usersLike.length; i++) {
+                const names = document.createElement("p")
+                names.innerHTML = usersLike[i].user.name
+                label.prepend(names)
+                if(i === 2){
+                    label.appendChild(link)
+                    break
+                }
+            }
+            label.addEventListener("mouseout", async () => {
+                setTimeout(() => {
+                    link.style.display = "none"
+                    label.innerHTML = ""
+                }, 1000)
+            })
+        })
+
         if(account !== item.userId){
             editBtn.remove()
         }
@@ -138,4 +167,6 @@ async function printFeed(arr){
         })
     })
 } 
+
+
 

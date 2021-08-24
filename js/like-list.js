@@ -7,7 +7,6 @@ const id = urlData.get("postId")
 
 async function getNames() {
     const usersLike = await Fetch.get(`likes?postId=${id}&_expand=user`)
-    console.log(usersLike)
     list.innerHTML = ""
     for (let i = 0; i < usersLike.length; i++) {
         const elem = document.createElement("li")

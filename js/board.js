@@ -17,13 +17,13 @@ const pagesList = document.querySelector(".pages")
 getFeed()
 async function getFeed(){
     const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
-    printFeed(posts,feedList,account)
+    printFeed(posts,feedList,account,getFeed)
 }
 
 selectBtn.addEventListener("click", async () => {
     const getLength = await Fetch.get("posts")
     const getFirstPage = await Fetch.get(`posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc&_page=1&_limit=${select.value}`) 
-    printFeed(getFirstPage,feedList,account)
+    printFeed(getFirstPage,feedList,account,getFeed)
     const pageQua = Math.ceil(getLength.length / select.value)
     pagesList.innerHTML = ""
     for (let i = 0; i < pageQua; i++) {
@@ -34,15 +34,13 @@ selectBtn.addEventListener("click", async () => {
         if(page.id == 1){
             page.classList.add("page-active")
         }
-        console.log()
         page.addEventListener("click", async (e) => {
             const pageActive = document.querySelector(".page-active")
             e.currentTarget.classList.add("page-active")
             pageActive.classList.remove("page-active")
             const getPage = await Fetch.get(`posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc&_page=${page.id}&_limit=${select.value}`)
-            printFeed(getPage,feedList,account)
+            printFeed(getPage,feedList,account,getFeed)
         })
-        
         page.innerHTML = i + 1
         elem.appendChild(page)
         pagesList.appendChild(elem)

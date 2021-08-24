@@ -1,6 +1,8 @@
 import { Fetch } from "./fetches.js"
 
-export default async function printFeed(arr,list,account){
+
+
+export default async function printFeed(arr,list,account,func){
     list.innerHTML = ""
     arr.forEach(async(item) => {
         const elem = document.createElement("li")
@@ -56,9 +58,7 @@ export default async function printFeed(arr,list,account){
                     likeQuantity: item.likeQuantity + 1
                 }
                 await Fetch.patch(`posts/${item.id}`, body)
-                /* const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
-                printFeed(posts,list,account) */
-                likeQua.innerHTML = item.likeQuantity + 1
+                func()
             }
         })
 
@@ -112,9 +112,7 @@ export default async function printFeed(arr,list,account){
                 }
             await Fetch.patch(`posts/${item.id}`, body)
             editBtn.style.display = "block"
-            /* const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
-            printFeed(posts,list,account) */
-            spanPost.innerHTML = input.value
+            func()
             })
         })
     })

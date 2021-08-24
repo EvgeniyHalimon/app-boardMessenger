@@ -1,40 +1,8 @@
 import { Fetch } from "./fetches.js"
-import { Storage } from "./getDataFromStorage.js"
-import printFeed from "./printPost.js"
 
-const textarea = document.querySelector("textarea")
-const postBtn = document.querySelector("#submit-btn")
-const postList = document.querySelector(".posts")
-const board = document.querySelector("h2")
-board.addEventListener("click", () => {
-    location.href = "../html/main-board.html"
-})
-
-const account = Storage.getData("account") 
-
-getFeed()
-async function getFeed(){
-    const posts = await Fetch.get(`posts?userId=${account}&_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc`)
-    printFeed(posts,postList,account)
-}
-
-postBtn.addEventListener("click", async () => {
-    const body = {
-        post: textarea.value,
-        userId: account,
-        likeQuantity: 0,
-        date: new Date().toLocaleDateString(),
-        hours: new Date().toLocaleTimeString().slice(0,-3)
-    }
-    await Fetch.post("posts", body)
-    const posts = await Fetch.get(`posts?userId=${account}&_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc`)
-    printFeed(posts,postList,account)
-    textarea.value = ""
-})
-
-/* async function printPost() {
-    postList.innerHTML = ""
-    posts.forEach(async(item) => {
+export default async function printFeed(arr,list,account){
+    list.innerHTML = ""
+    arr.forEach(async(item) => {
         const elem = document.createElement("li")
         elem.classList.add("list-item")
         const spanPost = document.createElement("span")
@@ -57,22 +25,22 @@ postBtn.addEventListener("click", async () => {
         commonSpan.appendChild(spanBio)
         commonSpan.appendChild(editBtn)
         elem.appendChild(commonSpan)
-        postList.appendChild(elem)
         spanCheck.appendChild(input)
         spanCheck.appendChild(label)
-        spanCheck.appendChild(likeQua)
+        spanCheck.prepend(likeQua)
+        list.appendChild(elem)
         input.value = item.id
         label.value = item.id
+        spanBio.innerHTML = `Author: ${item.user.name} ${item.user.surname} / Date: ${item.date} ${item.hours}`
         likeQua.innerHTML = item.likeQuantity
         spanPost.innerHTML = item.post
-        spanBio.innerHTML = `Author: ${item.user.name} ${item.user.surname} / Date: ${item.date} ${item.hours}`
-
+        
         const getLike = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
         const respLike = await getLike
         if(respLike.length === 1){
             input.checked = true
             input.disabled = true
-        }
+        } 
 
         label.addEventListener("click", async () => {
             const getLikeStatus = await Fetch.get(`likes?userId=${account}&postId=${item.id}`)
@@ -88,8 +56,9 @@ postBtn.addEventListener("click", async () => {
                     likeQuantity: item.likeQuantity + 1
                 }
                 await Fetch.patch(`posts/${item.id}`, body)
-                const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
-                printPost(posts)
+                /* const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
+                printFeed(posts,list,account) */
+                likeQua.innerHTML = item.likeQuantity + 1
             }
         })
 
@@ -119,6 +88,10 @@ postBtn.addEventListener("click", async () => {
             })
         })
 
+        if(account !== item.userId){
+            editBtn.remove()
+        }
+
         editBtn.addEventListener("click", () => {
             editBtn.style.display = "none"
             const input = document.createElement("input")
@@ -139,17 +112,10 @@ postBtn.addEventListener("click", async () => {
                 }
             await Fetch.patch(`posts/${item.id}`, body)
             editBtn.style.display = "block"
-            const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
-            printPost(posts)
+            /* const posts = await Fetch.get("posts?_expand=user&_sort=likeQuantity,date,hours&_order=desc,desc,desc")
+            printFeed(posts,list,account) */
+            spanPost.innerHTML = input.value
             })
         })
     })
-    
-} */
-
-const logout = document.querySelector(".logout")
-logout.addEventListener("submit", (e) => {
-    e.preventDefault()
-    Storage.removeData("account")
-    document.location.href="../html/login.html"
-})
+} 
